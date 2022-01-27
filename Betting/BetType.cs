@@ -1,6 +1,6 @@
 public enum BetType
 {
-    Win,
-    Place,
-    Show
+    win,
+    place,
+    show
 }

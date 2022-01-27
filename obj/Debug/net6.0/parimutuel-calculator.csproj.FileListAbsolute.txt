@@ -1,0 +1,15 @@
+C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\parimutuel-calculator.exe
+C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\parimutuel-calculator.deps.json
+C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\parimutuel-calculator.runtimeconfig.json
+C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\parimutuel-calculator.dll
+C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\ref\parimutuel-calculator.dll
+C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\parimutuel-calculator.pdb
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.csproj.AssemblyReference.cache
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.AssemblyInfoInputs.cache
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.AssemblyInfo.cs
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.csproj.CoreCompileInputs.cache
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.dll
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\ref\parimutuel-calculator.dll
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.pdb
+C:\Users\McKenzie\source\repos\parimutuel-calculator\obj\Debug\net6.0\parimutuel-calculator.genruntimeconfig.cache
