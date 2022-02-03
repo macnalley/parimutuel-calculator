@@ -12,5 +12,11 @@ public class Bet
         Amount = amount;
         BetType = betType;
     }
+}
 
+public enum BetType
+{
+    win,
+    place,
+    show
 }

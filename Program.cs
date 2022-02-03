@@ -1,38 +1,12 @@
 ﻿List<Bet> betsList = new List<Bet>();
 
-string userInput;
-
-do
-{
-    Console.WriteLine("Type a number and hit \"Enter\" to choose an action or Press \"Escape\" to exit:\n" +
-        "1. Place bet.\n" + 
-        "2. Display odds.\n" +
-        "3. Calculate payouts.\n");
-
-    userInput = Console.ReadLine();
-
-    switch (userInput)
-    { 
-        case "1":
-            PlaceBet();
-            break;
-        case "2":
-            NotImplemented();
-            break;
-        case "3":
-            NotImplemented();
-            break;
-        default:
-            InvalidInput(); 
-            break;      
-    }
-
-} while (Console.ReadKey().Key != ConsoleKey.Escape);
+while (true)
+    RunMainMenu();
 
 void PlaceBet()
 {
     Console.WriteLine("Enter bettor name, horse number, bet type, and amount in that order.");
-    userInput = Console.ReadLine();
+    string userInput = Console.ReadLine();
     if (userInput != null)
     {
         string[] args = userInput.Split(' ');
@@ -98,4 +72,31 @@ void NotImplemented()
 void InvalidInput()
 {
     Console.WriteLine("Invalid input.");
+}
+
+void RunMainMenu()
+{
+    Console.WriteLine("Type a number to choose an action or Press \"Escape\" to exit:\n" +
+        "1. Place bet.\n" + 
+        "2. Display odds.\n" +
+        "3. Calculate payouts.\n");
+    
+    switch (Console.ReadKey(true).Key)
+    { 
+        case ConsoleKey.D1:
+            PlaceBet();
+            break;
+        case ConsoleKey.D2:
+            NotImplemented();
+            break;
+        case ConsoleKey.D3:
+            NotImplemented();
+            break;
+        case ConsoleKey.Escape:
+            Environment.Exit(0);
+            break;
+        default:
+            InvalidInput(); 
+            break;      
+    }
 }
