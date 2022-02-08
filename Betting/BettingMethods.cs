@@ -1,5 +1,5 @@
 //Methods for calling bets
-public static class Betting
+public static class BettingMethods
 {
     public static Bet PlaceBet()
     {
@@ -21,7 +21,7 @@ public static class Betting
         }
     }
 
-    private static string[] SplitIntoArgs(string input)
+    public static string[] SplitIntoArgs(string input)
     {
         string[] args;
         

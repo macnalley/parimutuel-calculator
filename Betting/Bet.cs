@@ -4,6 +4,7 @@ public class Bet
     public int Horse { get; set; }
     public double Amount { get; set; }
     public BetType BetType { get; set; }
+    public double AmountOwed { get; set; }
 
     public Bet(string name, int horse)
     {
