@@ -1,4 +1,18 @@
-﻿// Instantiates a list of bets to hold bets as they are placed
+﻿Console.Clear();
+Console.WriteLine(@"/---------------------------------------------------\");
+Console.WriteLine(@"|   _          _     _        ______      _     _   |");
+Console.WriteLine(@"|  | |        | |   ( )       | ___ \    | |   | |  |");
+Console.WriteLine(@"|  | |     ___| |_  |/ ___    | |_/ / ___| |_  | |  |");
+Console.WriteLine(@"|  | |    / _ \ __|   / __|   | ___ \/ _ \ __| | |  |");
+Console.WriteLine(@"|  | |___|  __/ |_    \__ \   | |_/ /  __/ |_  |_|  |");
+Console.WriteLine(@"|  \_____/\___|\__|   |___/   \____/ \___|\__| (_)  |");
+Console.WriteLine(@"|                                                   |");
+Console.WriteLine(@"\---------------------------------------------------/");
+
+Console.ReadLine();
+Console.Clear();
+
+// Instantiates a list of bets to hold bets as they are placed
 // and a race object to contain informtaion about odds and payouts
 List<Bet> betsList = new List<Bet>();
 Race race = new Race();
@@ -19,6 +33,8 @@ void RunMainMenu()
     { 
         case ConsoleKey.D1:
             betsList.Add(BettingMethods.PlaceBet());
+            Console.Clear();
+            Console.WriteLine("Bet added.\n");
             break;
         case ConsoleKey.D2:
             IO.NotImplemented();
@@ -50,20 +66,35 @@ void PayoutMenu()
     } 
     while (!IsPayoutMenuInputValid());
 
+    Console.Clear();
     race.CalculateWinPayouts(betsList, winHorse);
     race.CalculatePlacePayouts(betsList, winHorse, showHorse);
     race.CalculateShowPayouts(betsList, winHorse, placeHorse, showHorse);
+    Console.ReadLine();
+    Console.Clear();
 
     bool IsPayoutMenuInputValid()
     {
         if (args.Length != 3)
-            { return false; }
+        { 
+            IO.InvalidInput();
+            return false; 
+        }
         if (!int.TryParse(args[0], out winHorse))
-            { return false; }
+        { 
+            IO.InvalidInput();
+            return false; 
+        }
         if (!int.TryParse(args[1], out placeHorse))
-            { return false; }
+        { 
+            IO.InvalidInput();
+            return false; 
+        }
         if (!int.TryParse(args[2], out showHorse))
-            { return false; }
+        { 
+            IO.InvalidInput();
+            return false; 
+        }
         else return true;
     }
 }

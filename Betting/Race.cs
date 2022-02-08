@@ -42,7 +42,7 @@ public class Race
             if (bet.Horse == horse)
             {
                 double amountOwed = bet.Amount * (payout / 2.00) + bet.Amount; 
-                Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }");
+                Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0");
             }
         }
     }
@@ -86,7 +86,7 @@ public class Race
             {
                 double amountOwed = bet.Amount * (winPayout / 2.00) + bet.Amount; 
                 if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }"); }
+                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
             }
         }
         foreach (Bet bet in betsList)
@@ -95,7 +95,7 @@ public class Race
             {
                 double amountOwed = bet.Amount * (placePayout / 2.00) + bet.Amount; 
                 if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }"); }
+                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
             }
         }
     }
@@ -144,7 +144,7 @@ public class Race
             {
                 double amountOwed = bet.Amount * (winPayout / 2.00) + bet.Amount; 
                 if (amountOwed > 0)
-                { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }"); }
+                { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
             }
         }
         foreach (Bet bet in betsList)
@@ -153,7 +153,7 @@ public class Race
             {
                 double amountOwed = bet.Amount * (placePayout / 2.00) + bet.Amount; 
                 if (amountOwed > 0)
-                { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }"); }
+                { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
             }
         }
         foreach (Bet bet in betsList)
@@ -162,7 +162,7 @@ public class Race
             {
                 double amountOwed = bet.Amount * (showPayout / 2.00) + bet.Amount; 
                 if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }"); }
+                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
             }
         }
     }
