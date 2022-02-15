@@ -1,0 +1,5 @@
+C:\Users\McKenzie\Downloads\parimutuel-calculator.exe
+C:\Users\McKenzie\Downloads\parimutuel-calculator.dll
+C:\Users\McKenzie\Downloads\parimutuel-calculator.deps.json
+C:\Users\McKenzie\Downloads\parimutuel-calculator.runtimeconfig.json
+C:\Users\McKenzie\Downloads\parimutuel-calculator.pdb

@@ -17,6 +17,14 @@ Console.Clear();
 List<Bet> betsList = new List<Bet>();
 Race race = new Race();
 
+betsList.Add(new Bet("Mack", 1, 2.00, BetType.win));
+betsList.Add(new Bet("Mack", 2, 3.00, BetType.win));
+betsList.Add(new Bet("Mack", 3, 20.00, BetType.show));
+betsList.Add(new Bet("Mack", 4, 2.00, BetType.win));
+betsList.Add(new Bet("Mack", 5, 2.00, BetType.win));
+betsList.Add(new Bet("Mack", 6, 2.00, BetType.win));
+
+
 // A loop to run a main menu that can be closed with the escape key.
 while (true)
     { RunMainMenu(); }
@@ -37,7 +45,10 @@ void RunMainMenu()
             Console.WriteLine("Bet added.\n");
             break;
         case ConsoleKey.D2:
-            IO.NotImplemented();
+            Console.Clear();
+            BettingMethods.ShowOdds(betsList);
+            Console.ReadLine();
+            Console.Clear();
             break;
         case ConsoleKey.D3:
             PayoutMenu();
