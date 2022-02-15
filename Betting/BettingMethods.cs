@@ -1,26 +1,6 @@
 //Methods for calling bets
 public static class BettingMethods
 {
-    public static Bet PlaceBet()
-    {
-        Console.WriteLine("Enter bettor name, horse number, bet type (optional), and amount (optional) in that order.\n" +
-                            "Note: Default bet type is win, and default bet is $2.00.");
-        string[] args = SplitIntoArgs(Console.ReadLine());
-
-        switch (args.Length)
-        {
-            case 2:
-                return CreateBet(args[0], args[1]);
-            case 3:
-                return CreateBet(args[0], args[1], args[2]);
-            case 4:
-                return CreateBet(args[0], args[1], args[2], args[3]);
-            default:
-                IO.InvalidInput();
-                return PlaceBet();
-        }
-    }
-
     public static string[] SplitIntoArgs(string input)
     {
         string[] args;
@@ -42,75 +22,7 @@ public static class BettingMethods
         return args;
     }
 
-    private static Bet CreateBet(string name, string horse)
-    {
-        int horseInt;
-        if (!int.TryParse(horse, out horseInt))
-            {
-                IO.InvalidInput();
-                return PlaceBet();
-            }
-        else return new Bet(name, horseInt);
-    }
-
-    private static Bet CreateBet(string name, string horse, string amountOrBet)
-    {
-        int horseInt;
-        if (!int.TryParse(horse, out horseInt))
-            {
-                IO.InvalidInput();
-                return PlaceBet();
-            }
-        
-        double amountDouble;
-        if (!double.TryParse(amountOrBet, out amountDouble))
-        {
-            BetType bet = new BetType();
-            if (!IsValidBetType(amountOrBet))
-            {
-                IO.InvalidInput();
-                return PlaceBet();
-            }
-            else 
-            {
-                bet.GetBetType(amountOrBet);
-                return new Bet(name, horseInt, bet);
-            }         
-        }
-
-        else return new Bet(name, horseInt, amountDouble);
-    }
-
-    private static Bet CreateBet(string name, string horse, string bet, string amount)
-    {
-        int horseInt;
-        if (!int.TryParse(horse, out horseInt))
-        {
-            IO.InvalidInput();
-            return PlaceBet();
-        }
-        
-        double amountDouble;
-        if (!double.TryParse(amount, out amountDouble))
-        {
-            IO.InvalidInput();
-            return PlaceBet();
-        }
-
-        BetType betType = new BetType();
-        if (!IsValidBetType(bet))
-        {
-            IO.InvalidInput();
-            return PlaceBet();
-        }
-        else 
-        {
-            betType.GetBetType(bet);
-            return new Bet(name, horseInt, amountDouble, betType);
-        } 
-    }
-
-    private static bool IsValidBetType(string bet)
+    public static bool IsValidBetType(string bet)
     {
         if (bet.ToLower() == "win" || 
             bet.ToLower() == "place" || 
@@ -202,6 +114,59 @@ public static class BettingMethods
             double roundedOdds = Math.Round(odds);
             return $"{roundedOdds}";
         }
+    }
+
+    public static bool IsInt(string str)
+    {
+        int x;
+        return int.TryParse(str, out x);
+    }
+
+    public static bool IsDouble(string str)
+    {
+        double x;
+        return double.TryParse(str, out x);
+    }
+
+    public static bool IsValidBet(string[] args)
+    {
+        if (args.Count() == 2 && 
+            BettingMethods.IsInt(args[1]))
+            { return true; }
+        
+        else if (args.Count() == 3 &&
+            BettingMethods.IsInt(args[1]) &&
+            BettingMethods.IsValidBetType(args[2]))
+            { return true; }
+
+        else if (args.Count() == 3 &&
+            BettingMethods.IsInt(args[1]) &&
+            BettingMethods.IsDouble(args[2]))
+            { return true; }
+
+        else if (args.Count() == 4 &&
+            BettingMethods.IsInt(args[1]) &&
+            BettingMethods.IsValidBetType(args[2]) &&
+            BettingMethods.IsDouble(args[3]))
+            { return true; }
+
+        else return false;
+
+    }
+
+    public static void DisplayBets(List<Bet> betsList)
+    {
+        Console.Clear();
+        Console.WriteLine("Bets");
+
+        for (int i = 1; i <= betsList.Count(); i++)
+        {
+            Console.WriteLine($"{i}. {betsList[i - 1].ToString()}");
+        }
+
+        Console.ReadLine();
+        Console.Clear();
+
     }
 
 }

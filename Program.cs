@@ -17,12 +17,12 @@ Console.Clear();
 List<Bet> betsList = new List<Bet>();
 Race race = new Race();
 
-betsList.Add(new Bet("Mack", 1, 2.00, BetType.win));
-betsList.Add(new Bet("Mack", 2, 3.00, BetType.win));
-betsList.Add(new Bet("Mack", 3, 20.00, BetType.show));
-betsList.Add(new Bet("Mack", 4, 2.00, BetType.win));
-betsList.Add(new Bet("Mack", 5, 2.00, BetType.win));
-betsList.Add(new Bet("Mack", 6, 2.00, BetType.win));
+// betsList.Add(new Bet("Mack", 1, 2.00, BetType.win));
+// betsList.Add(new Bet("Mack", 2, 3.00, BetType.win));
+// betsList.Add(new Bet("Mack", 3, 20.00, BetType.show));
+// betsList.Add(new Bet("Mack", 4, 2.00, BetType.win));
+// betsList.Add(new Bet("Mack", 5, 2.00, BetType.win));
+// betsList.Add(new Bet("Mack", 6, 2.00, BetType.win));
 
 
 // A loop to run a main menu that can be closed with the escape key.
@@ -35,14 +35,14 @@ void RunMainMenu()
     Console.WriteLine("Type a number to choose an action or Press \"Escape\" to exit:\n" +
         "1. Place bet.\n" + 
         "2. Display odds.\n" +
-        "3. Calculate payouts.\n");
+        "3. Calculate payouts.\n" +
+        "4. Display all current bets");
     
     switch (Console.ReadKey(true).Key)
     { 
         case ConsoleKey.D1:
-            betsList.Add(BettingMethods.PlaceBet());
             Console.Clear();
-            Console.WriteLine("Bet added.\n");
+            BetMenu();
             break;
         case ConsoleKey.D2:
             Console.Clear();
@@ -53,6 +53,9 @@ void RunMainMenu()
         case ConsoleKey.D3:
             PayoutMenu();
             break;
+        case ConsoleKey.D4:
+            BettingMethods.DisplayBets(betsList);
+            break;
         case ConsoleKey.Escape:
             Environment.Exit(0);
             break;
@@ -60,6 +63,48 @@ void RunMainMenu()
             IO.InvalidInput(); 
             break;      
     }
+}
+
+void BetMenu()
+{   
+    string[] args;
+
+    do
+    {
+        Console.WriteLine("Enter bettor name, horse number, bet type (optional), and amount (optional), in that order,\n" +
+                            "or type \"Back\" to return.\n" +
+                            "Note: Default bet type is win, and default bet is $2.00.");
+        
+        string input = Console.ReadLine();
+        
+        if (input.ToLower() == "back")
+            {
+                Console.Clear();
+                break;
+            }
+        
+        else 
+        {   
+            args = BettingMethods.SplitIntoArgs(input);
+
+            if (!BettingMethods.IsValidBet(args))
+            { 
+                    Console.Clear();
+                    Console.WriteLine("Invalid Bet"); 
+            }
+
+            if (BettingMethods.IsValidBet(args))
+            { 
+                Bet bet = new Bet();
+                bet.CreateBet(args);
+                betsList.Add(bet);
+                Console.Clear();
+                Console.WriteLine("Bet added.\n");
+            }
+        }
+    }
+    while (!BettingMethods.IsValidBet(args));
+
 }
 
 void PayoutMenu()

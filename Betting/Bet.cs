@@ -1,11 +1,18 @@
 public class Bet
 {
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public int Horse { get; set; }
-    public double Amount { get; set; }
     public BetType BetType { get; set; }
+    public double Amount { get; set; }
     public double AmountOwed { get; set; }
 
+    public Bet()
+    {
+        Amount = 2.00;
+        BetType = BetType.win;
+    }
+
+    
     public Bet(string name, int horse)
     {
         Name = name;
@@ -39,32 +46,31 @@ public class Bet
         BetType = betType;
     }
 
-}
-
-public enum BetType
-{
-    win,
-    place,
-    show
-}
-
-public static class BetTypeMethods
-{
-    public static void GetBetType(this BetType betType, string bet)
-    {        
-        switch (bet.ToLower())
+    public void CreateBet(string[] args)
+    {
+        Name = args[0];
+        Horse = int.Parse(args[1]);
+        
+        if (args.Count() == 3)
         {
-            case "win":
-                betType = BetType.win;
-                break;
-            case "place":
-                betType = BetType.show;
-                break;
-            case "show":
-                betType = BetType.show;
-                break;
-            default:
-                break;
-        }       
+            if (BettingMethods.IsDouble(args[2]))
+            {
+                Amount = double.Parse(args[2]);
+            }
+            else BetType = BetTypeMethods.ParseBetType(args[2]);
+        }
+
+        if (args.Count() == 4)
+        {
+            Amount = double.Parse(args[3]);
+            BetType = BetTypeMethods.ParseBetType(args[3]);
+        }
+
     }
+
+    public override string ToString()
+    {
+        return $"{Name}: ${Amount} to {BetType} on horse {Horse}";
+    }
+
 }
