@@ -39,10 +39,11 @@ public class Race
 
         foreach (Bet bet in betsList)
         {
-            if (bet.Horse == horse)
+            if (bet.Horse == horse & bet.BetType == BetType.win)
             {
                 double amountOwed = bet.Amount * (payout / 2.00) + bet.Amount; 
-                Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0");
+                string owedString = String.Format("{0:0.00}", amountOwed);
+                Console.WriteLine($"{ bet.Name } is owed ${ owedString }");
             }
         }
     }
@@ -82,20 +83,22 @@ public class Race
 
         foreach (Bet bet in betsList)
         {
-            if (bet.Horse == winHorse)
+            if (bet.Horse == winHorse && bet.BetType == BetType.place)
             {
                 double amountOwed = bet.Amount * (winPayout / 2.00) + bet.Amount; 
+                string owedString = String.Format("{0:0.00}", amountOwed);
                 if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
+                    { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
             }
         }
         foreach (Bet bet in betsList)
         {
-            if (bet.Horse == placeHorse)
+            if (bet.Horse == placeHorse && bet.BetType == BetType.place)
             {
                 double amountOwed = bet.Amount * (placePayout / 2.00) + bet.Amount; 
+                string owedString = String.Format("{0:0.00}", amountOwed);
                 if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
+                    { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
             }
         }
     }
@@ -109,9 +112,9 @@ public class Race
         double take = ShowTotal * TakePercentage;
 
         // The total amount of money bet to place on the winning, placing, and showing horses
-        double winHorseTotal = CalculateHorseTotal(betsList, BetType.place, winHorse);
-        double placeHorseTotal = CalculateHorseTotal(betsList, BetType.place, placeHorse);
-        double showHorseTotal = CalculateHorseTotal(betsList, BetType.place, showHorse);
+        double winHorseTotal = CalculateHorseTotal(betsList, BetType.show, winHorse);
+        double placeHorseTotal = CalculateHorseTotal(betsList, BetType.show, placeHorse);
+        double showHorseTotal = CalculateHorseTotal(betsList, BetType.show, showHorse);
 
         double horseTotal = winHorseTotal + placeHorseTotal + showHorseTotal;
 
@@ -140,29 +143,32 @@ public class Race
 
         foreach (Bet bet in betsList)
         {
-            if (bet.Horse == winHorse)
+            if (bet.Horse == winHorse && bet.BetType == BetType.show)
             {
                 double amountOwed = bet.Amount * (winPayout / 2.00) + bet.Amount; 
+                string owedString = String.Format("{0:0.00}", amountOwed);
                 if (amountOwed > 0)
-                { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
+                { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
             }
         }
         foreach (Bet bet in betsList)
         {
-            if (bet.Horse == placeHorse)
+            if (bet.Horse == placeHorse && bet.BetType == BetType.show)
             {
                 double amountOwed = bet.Amount * (placePayout / 2.00) + bet.Amount; 
+                string owedString = String.Format("{0:0.00}", amountOwed);
                 if (amountOwed > 0)
-                { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
+                { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
             }
         }
         foreach (Bet bet in betsList)
         {
-            if (bet.Horse == showHorse)
+            if (bet.Horse == showHorse && bet.BetType == BetType.show)
             {
                 double amountOwed = bet.Amount * (showPayout / 2.00) + bet.Amount; 
+                string owedString = String.Format("{0:0.00}", amountOwed);
                 if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ amountOwed }0"); }
+                    { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
             }
         }
     }

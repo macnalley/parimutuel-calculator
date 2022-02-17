@@ -24,7 +24,7 @@ betsList.Add(new Bet("Caitlyn", 3, 20.00, BetType.show));
 betsList.Add(new Bet("Valerie", 4, 2.00, BetType.win));
 betsList.Add(new Bet("Jim", 5, 2.00, BetType.win));
 betsList.Add(new Bet("Boo Kitty", 6, 2.00, BetType.win));
-betsList.Add(new Bet("Matlida", 2, 2.00, BetType.place));
+betsList.Add(new Bet("Matilda", 2, 2.00, BetType.place));
 
 
 
@@ -137,7 +137,7 @@ void PayoutMenu()
 
     Console.Clear();
     race.CalculateWinPayouts(betsList, winHorse);
-    race.CalculatePlacePayouts(betsList, winHorse, showHorse);
+    race.CalculatePlacePayouts(betsList, winHorse, placeHorse);
     race.CalculateShowPayouts(betsList, winHorse, placeHorse, showHorse);
     Console.ReadLine();
     Console.Clear();
