@@ -8,6 +8,7 @@ Console.WriteLine(@"|  | |___|  __/ |_    \__ \   | |_/ /  __/ |_  |_|  |");
 Console.WriteLine(@"|  \_____/\___|\__|   |___/   \____/ \___|\__| (_)  |");
 Console.WriteLine(@"|                                                   |");
 Console.WriteLine(@"\---------------------------------------------------/");
+Console.WriteLine("\nPress any key to continue.");
 
 Console.ReadLine();
 Console.Clear();
@@ -17,12 +18,14 @@ Console.Clear();
 List<Bet> betsList = new List<Bet>();
 Race race = new Race();
 
-// betsList.Add(new Bet("Mack", 1, 2.00, BetType.win));
-// betsList.Add(new Bet("Mack", 2, 3.00, BetType.win));
-// betsList.Add(new Bet("Mack", 3, 20.00, BetType.show));
-// betsList.Add(new Bet("Mack", 4, 2.00, BetType.win));
-// betsList.Add(new Bet("Mack", 5, 2.00, BetType.win));
-// betsList.Add(new Bet("Mack", 6, 2.00, BetType.win));
+betsList.Add(new Bet("Mack", 1, 2.00, BetType.win));
+betsList.Add(new Bet("Sarah", 2, 3.00, BetType.win));
+betsList.Add(new Bet("Caitlyn", 3, 20.00, BetType.show));
+betsList.Add(new Bet("Valerie", 4, 2.00, BetType.win));
+betsList.Add(new Bet("Jim", 5, 2.00, BetType.win));
+betsList.Add(new Bet("Boo Kitty", 6, 2.00, BetType.win));
+betsList.Add(new Bet("Matlida", 2, 2.00, BetType.place));
+
 
 
 // A loop to run a main menu that can be closed with the escape key.
@@ -47,11 +50,12 @@ void RunMainMenu()
         case ConsoleKey.D2:
             Console.Clear();
             BettingMethods.ShowOdds(betsList);
-            Console.ReadLine();
             Console.Clear();
             break;
         case ConsoleKey.D3:
+            Console.Clear();
             PayoutMenu();
+            Console.Clear();
             break;
         case ConsoleKey.D4:
             BettingMethods.DisplayBets(betsList);
@@ -108,7 +112,10 @@ void BetMenu()
 }
 
 void PayoutMenu()
-{
+{    
+    if (BettingMethods.AreNoBets(betsList))
+        { return; }
+
     int winHorse = 0;
     int placeHorse = 0;
     int showHorse = 0;
@@ -116,8 +123,14 @@ void PayoutMenu()
 
     do 
     {
-        Console.WriteLine("Enter the numbers of the first, second, and third place horses.");
+        Console.WriteLine("Enter the numbers of the first, second, and third place horses.\n" +
+            "Or type \"Back\" to return");
+        
         string input = Console.ReadLine();
+        
+        if (input.ToLower() == "back")
+            { return; }
+        
         args = BettingMethods.SplitIntoArgs(input);
     } 
     while (!IsPayoutMenuInputValid());
