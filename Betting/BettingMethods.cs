@@ -36,6 +36,8 @@ public static class BettingMethods
         if (AreNoBets(bets))
             { return; }
 
+        Console.WriteLine("Odds");
+
         int numHorses = FindHighestHorseNumber(bets);
         
         for (int i = 1; i <= numHorses; i++)
@@ -161,10 +163,7 @@ public static class BettingMethods
     }
 
     public static void DisplayBets(List<Bet> betsList)
-    {
-        if (AreNoBets(betsList))
-            { return; }
-        
+    {        
         Console.Clear();
         Console.WriteLine("Bets");
 
@@ -172,10 +171,6 @@ public static class BettingMethods
         {
             Console.WriteLine($"{i}. {betsList[i - 1].ToString()}");
         }
-
-        Console.ReadLine();
-        Console.Clear();
-
     }
 
     public static bool AreNoBets(List<Bet> betsList)

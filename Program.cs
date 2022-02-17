@@ -8,7 +8,7 @@ Console.WriteLine(@"|  | |___|  __/ |_    \__ \   | |_/ /  __/ |_  |_|  |");
 Console.WriteLine(@"|  \_____/\___|\__|   |___/   \____/ \___|\__| (_)  |");
 Console.WriteLine(@"|                                                   |");
 Console.WriteLine(@"\---------------------------------------------------/");
-Console.WriteLine("\nPress any key to continue.");
+Console.WriteLine("\nPress \"Enter\" to continue.");
 
 Console.ReadLine();
 Console.Clear();
@@ -35,11 +35,12 @@ while (true)
 
 void RunMainMenu()
 {
-    Console.WriteLine("Type a number to choose an action or Press \"Escape\" to exit:\n" +
+    Console.WriteLine("Type a number to choose an action or press \"Escape\" to exit:\n" +
         "1. Place bet.\n" + 
         "2. Display odds.\n" +
         "3. Calculate payouts.\n" +
-        "4. Display all current bets");
+        "4. Display all current bets.\n" +
+        "5. Start a new race.");
     
     switch (Console.ReadKey(true).Key)
     { 
@@ -58,7 +59,10 @@ void RunMainMenu()
             Console.Clear();
             break;
         case ConsoleKey.D4:
-            BettingMethods.DisplayBets(betsList);
+            BetDisplayMenu();
+            break;
+        case ConsoleKey.D5:
+            NewRaceMenu();
             break;
         case ConsoleKey.Escape:
             Environment.Exit(0);
@@ -108,6 +112,46 @@ void BetMenu()
         }
     }
     while (!BettingMethods.IsValidBet(args));
+
+}
+
+void BetDisplayMenu()
+{
+    if (BettingMethods.AreNoBets(betsList))
+            { return; }
+
+    Console.WriteLine("\nTo remove a bet, type the bet number and hit \"Enter.\" Else, hit enter to return.");
+    string input = Console.ReadLine().Trim().Trim('.');
+
+    if (BettingMethods.IsInt(input))
+        { DeleteBetMenu(input); }
+
+    Console.Clear();
+}
+
+void DeleteBetMenu(string str)
+{
+    int betNumber = int.Parse(str);
+    Bet selectedBet = betsList[betNumber - 1];
+
+    Console.Clear();
+    Console.WriteLine($"{selectedBet}");    
+    Console.WriteLine("\nType \"DELETE\" and hit enter to confirm.");
+    string input = Console.ReadLine();
+    
+    if (input == "DELETE")
+    {
+        Bet betToRemove = betsList[betNumber - 1];
+        betsList.Remove(betToRemove);
+        Console.Clear();
+        Console.WriteLine("Bet deleted.");
+    }
+    else
+    {
+        Console.WriteLine("Not confirmed.");
+        Console.ReadLine();
+        Console.Clear();
+    }
 
 }
 
@@ -165,5 +209,29 @@ void PayoutMenu()
             return false; 
         }
         else return true;
+    }
+}
+
+void NewRaceMenu()
+{
+    Console.Clear();
+    Console.WriteLine("Will clear all current bets.\n" +
+        "Type \"CONFIRM\" to confirm, or hit \"Enter\" to return.");
+
+    string input = Console.ReadLine();
+
+    if (input == "CONFIRM")
+        {
+            Console.Clear();
+            betsList = new List<Bet>();
+            Console.WriteLine("New race started. All bets cleared.");
+            Console.WriteLine();
+            Console.ReadLine();
+        }
+    else
+    {
+        Console.WriteLine("Not confirmed.");
+        Console.ReadLine();
+        Console.Clear();
     }
 }
