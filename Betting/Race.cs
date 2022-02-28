@@ -177,13 +177,9 @@ public class Race
     //E.g., the total amount placed by all bettors to win on horse 1. 
     private double CalculateHorseTotal(List<Bet> betsList, BetType betType, int horse)
     {
-        double total = 0;
-
-        foreach (Bet bet in betsList)
-        {
-            if (bet.BetType == betType && bet.Horse == horse)
-                { total += bet.Amount; }
-        }
+        double total = (from bet in betsList
+                        where bet.BetType == betType && bet.Horse == horse
+                        select bet.Amount).Sum();
 
         return total;
     }
@@ -192,13 +188,9 @@ public class Race
     // E.g., total amount wagered on horses to win.
     private double CalculateBetTotal(List<Bet> betsList, BetType betType)
     {
-        double total = 0;
-
-        foreach (Bet bet in betsList)
-        {
-            if (bet.BetType == betType)
-                { total += bet.Amount; }
-        }
+        double total = (from bet in betsList
+                        where bet.BetType == betType
+                        select bet.Amount).Sum();
 
         return total;
     }
