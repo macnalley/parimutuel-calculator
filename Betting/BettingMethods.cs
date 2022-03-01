@@ -55,20 +55,15 @@ public static class BettingMethods
     private static double CalculateOdds(List<Bet> bets, int horseNumber)
     {
         // Calculates the total amount wagered on bets to win
-        double winTotal = 0;
-        foreach (Bet bet in bets)
-        {
-            if (bet.BetType == BetType.win)
-                { winTotal += bet.Amount; }
-        }
+        double winTotal = (from bet in bets
+                           where bet.BetType == BetType.win
+                           select bet.Amount).Sum();
 
         // Calculates the total amount wagered on this horse to win 
-        double horseTotal = 0;
-        foreach (Bet bet in bets)
-        {
-            if (bet.Horse == horseNumber && bet.BetType == BetType.win)
-                { horseTotal += bet.Amount; }
-        }
+        double horseTotal = (from bet in bets
+                             where bet.Horse == horseNumber &&
+                                   bet.BetType == BetType.win
+                             select bet.Amount).Sum();
 
         // If there are no bets are the current horse, the program
         // imagines an additional minimum bet to create odds.
@@ -149,13 +144,15 @@ public static class BettingMethods
 
         else if (args.Count() == 3 &&
             BettingMethods.IsInt(args[1]) &&
-            BettingMethods.IsDouble(args[2]))
+            BettingMethods.IsDouble(args[2]) &&
+            Double.Parse(args[2]) >= 2.00)
             { return true; }
 
         else if (args.Count() == 4 &&
             BettingMethods.IsInt(args[1]) &&
             BettingMethods.IsValidBetType(args[2]) &&
-            BettingMethods.IsDouble(args[3]))
+            BettingMethods.IsDouble(args[3]) &&
+            Double.Parse(args[3]) >= 2.00)
             { return true; }
 
         else return false;
@@ -186,4 +183,22 @@ public static class BettingMethods
         else return false;
     }
 
+    public static bool AreWinners(List<Bet> betsList, int winHorse, int placeHorse, int showHorse)
+    {
+        Bet? winWinner = (from bet in betsList 
+                          where bet.Horse == winHorse
+                          select bet).FirstOrDefault();
+
+        Bet? placeWinner = (from bet in betsList 
+                            where bet.Horse == placeHorse
+                            select bet).FirstOrDefault();
+
+        Bet? showWinner = (from bet in betsList 
+                           where bet.Horse == showHorse
+                           select bet).FirstOrDefault();
+        
+        if (winWinner != null || placeWinner != null || showWinner != null)
+            { return true; }
+        else return false;
+    }
 }

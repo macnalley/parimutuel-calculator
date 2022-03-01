@@ -18,16 +18,6 @@ Console.Clear();
 List<Bet> betsList = new List<Bet>();
 Race race = new Race();
 
-betsList.Add(new Bet("Mack", 1, 2.00, BetType.win));
-betsList.Add(new Bet("Sarah", 2, 3.00, BetType.win));
-betsList.Add(new Bet("Caitlyn", 3, 20.00, BetType.show));
-betsList.Add(new Bet("Valerie", 4, 2.00, BetType.win));
-betsList.Add(new Bet("Jim", 5, 2.00, BetType.win));
-betsList.Add(new Bet("Boo Kitty", 6, 2.00, BetType.win));
-betsList.Add(new Bet("Matilda", 2, 2.00, BetType.place));
-
-
-
 // A loop to run a main menu that can be closed with the escape key.
 while (true)
     { RunMainMenu(); }
@@ -120,6 +110,14 @@ void BetDisplayMenu()
     if (BettingMethods.AreNoBets(betsList))
             { return; }
 
+    Console.Clear();
+    Console.WriteLine("Bets");
+
+    for (int i = 1; i <= betsList.Count(); i++)
+    {
+        Console.WriteLine($"{i}. {betsList[i - 1].ToString()}");
+    }
+    
     Console.WriteLine("\nTo remove a bet, type the bet number and hit \"Enter.\" Else, hit enter to return.");
     string input = Console.ReadLine().Trim().Trim('.');
 
@@ -180,9 +178,17 @@ void PayoutMenu()
     while (!IsPayoutMenuInputValid());
 
     Console.Clear();
-    race.CalculateWinPayouts(betsList, winHorse);
-    race.CalculatePlacePayouts(betsList, winHorse, placeHorse);
-    race.CalculateShowPayouts(betsList, winHorse, placeHorse, showHorse);
+
+    if (!BettingMethods.AreWinners(betsList, winHorse, placeHorse, showHorse))
+        { Console.WriteLine("No winners."); }
+    else 
+    {
+        Console.WriteLine("Payouts");
+        race.CalculateWinPayouts(betsList, winHorse);
+        race.CalculatePlacePayouts(betsList, winHorse, placeHorse);
+        race.CalculateShowPayouts(betsList, winHorse, placeHorse, showHorse);
+    }
+    
     Console.ReadLine();
     Console.Clear();
 
