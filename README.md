@@ -3,7 +3,7 @@ A console betting program to take bets and calculate odds and payouts in a parim
 
 The program can take manually entered bets to win, place, or show; store them in in-program memory; use those bets to calculate win odds; and display the payouts given race winners.
 
-This program targets .NET 6. The .NET 6 rutime can be obtained from https://dotnet.microsoft.com/en-us/download/dotnet/6.0.
+This program targets .NET 6. The .NET 6 rutime can be obtained from https://dotnet.microsoft.com/en-us/download/dotnet/6.0. The program can be run by cloning the directory, cd'ing into the directory from a command line, and using the "dotnet run" command.
 
 ## Functionality
 ### Take Bet

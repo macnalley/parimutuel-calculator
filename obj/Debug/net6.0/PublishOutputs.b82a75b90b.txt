@@ -1,5 +1,0 @@
-C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\publish\parimutuel-calculator.exe
-C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\publish\parimutuel-calculator.dll
-C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\publish\parimutuel-calculator.deps.json
-C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\publish\parimutuel-calculator.runtimeconfig.json
-C:\Users\McKenzie\source\repos\parimutuel-calculator\bin\Debug\net6.0\publish\parimutuel-calculator.pdb
