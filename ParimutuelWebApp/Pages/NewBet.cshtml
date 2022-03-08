@@ -1,0 +1,26 @@
+﻿@page
+@model MyApp.Namespace.NewBetModel
+@{
+}
+
+<h1>New Bet</h1>
+
+<form method="post">
+    <div>
+        <label asp-for="Bet.Name"></label>
+        <input asp-for="Bet.Name"/>
+    </div>
+    <div>
+        <label asp-for="Bet.Horse"></label>
+        <input asp-for="Bet.Horse"/>
+    </div>
+    <div>
+        <label asp-for="Bet.BetType"></label>
+        <input asp-for="Bet.BetType"/>
+    </div>
+    <div>
+        <label asp-for="Bet.Amount"></label>
+        <input asp-for="Bet.Amount"/>
+    </div>
+    <button type="submit">Add</button>
+</form>

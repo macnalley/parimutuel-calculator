@@ -1,12 +1,24 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ParimutuelCalculator;
 
 public class Bet
 {
-    public string? Name { get; set; }
+    public int Race { get; set; }
+    
+    [Required]
+    public string Name { get; set; }
+    
+    [Required, Range(1, 20)]  
     public int Horse { get; set; }
+    
     public BetType BetType { get; set; }
+    
+    [Range(2.00, double.MaxValue)]
     public double Amount { get; set; }
+    
     public double AmountOwed { get; set; }
+
 
     public Bet()
     {

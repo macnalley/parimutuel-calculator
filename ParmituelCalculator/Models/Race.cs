@@ -1,17 +1,37 @@
 namespace ParimutuelCalculator;
 
 public class Race
-{
+{  
     public double TakePercentage { get; set; }
+    public DateTime Date { get; set; }
+    public int RaceOfDay { get; set; }
+    public int NumOfHorses { get; set; }
+    public List<Horse> Horses { get; set; }
+    public List<Bet> Bets { get; set; }
     public double WinTotal { get; set; }
     public double PlaceTotal { get; set; }
     public double ShowTotal { get; set; }
+    
     
     public Race()
     {
         // This sets the percentage of all bets that the track collects as a fee.
         // The default is 10%
         TakePercentage = 0.1;
+        NumOfHorses = 20;
+        Date = DateTime.Today;
+        InstantiateHorses();
+    }
+
+    public Race(int raceOfDay)
+    {
+        // This sets the percentage of all bets that the track collects as a fee.
+        // The default is 10%
+        TakePercentage = 0.1;
+        NumOfHorses = 20;
+        Date = DateTime.Today;
+        this.RaceOfDay = raceOfDay;
+        InstantiateHorses();
     }
 
     public void CalculateWinPayouts(List<Bet> betsList, int horse)
@@ -196,4 +216,14 @@ public class Race
 
         return total;
     }
+
+    private void InstantiateHorses()
+    {
+        for (int i = 1; i <= NumOfHorses; i++)
+        {
+            var horse = new Horse(RaceOfDay, i);
+            Horses.Add(horse);
+        }
+    }
+
 }
