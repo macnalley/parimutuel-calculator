@@ -1,3 +1,5 @@
+namespace ParimutuelCalculator;
+
 public class Bet
 {
     public string? Name { get; set; }

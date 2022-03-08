@@ -1,3 +1,5 @@
+namespace ParimutuelCalculator;
+
 public enum BetType
 {
     win,

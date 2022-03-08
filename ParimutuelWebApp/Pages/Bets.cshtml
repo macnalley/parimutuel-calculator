@@ -1,0 +1,24 @@
+﻿@page
+@model MyApp.Namespace.BetsModel
+@{
+}
+
+<h1>Bets</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Horse</th>
+        <th>Bet Type</th>
+        <th>Amount</th>
+    </tr>
+    @foreach (var bet in Model.BetsList)
+    {
+        <tr>
+            <td>@bet.Name</td>
+            <td>@bet.Horse</td>
+            <td>@bet.BetType</td>
+            <td>@String.Format("{0:0.00}", bet.Amount)</td>
+        </tr>    
+    }
+</table>

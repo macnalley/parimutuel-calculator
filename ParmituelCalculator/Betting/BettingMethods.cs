@@ -1,3 +1,5 @@
+namespace ParimutuelCalculator;
+
 //Methods for calling bets
 public static class BettingMethods
 {

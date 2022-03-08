@@ -1,3 +1,5 @@
+namespace ParimutuelCalculator;
+
 public class Race
 {
     public double TakePercentage { get; set; }

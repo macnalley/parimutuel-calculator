@@ -1,4 +1,6 @@
-﻿Console.Clear();
+﻿using ParimutuelCalculator;
+
+Console.Clear();
 Console.WriteLine(@"/---------------------------------------------------\");
 Console.WriteLine(@"|   _          _     _        ______      _     _   |");
 Console.WriteLine(@"|  | |        | |   ( )       | ___ \    | |   | |  |");
