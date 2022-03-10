@@ -4,7 +4,6 @@ public class Race
 {  
     public double TakePercentage { get; set; }
     public DateTime Date { get; set; }
-    public int RaceOfDay { get; set; }
     public int NumOfHorses { get; set; }
     public List<Horse> Horses { get; set; }
     public List<Bet> Bets { get; set; }
@@ -21,18 +20,12 @@ public class Race
         NumOfHorses = 20;
         Date = DateTime.Today;
         InstantiateHorses();
+        Bets = new List<Bet>();
+        WinTotal = 0;
+        PlaceTotal = 0;
+        ShowTotal = 0;
     }
 
-    public Race(int raceOfDay)
-    {
-        // This sets the percentage of all bets that the track collects as a fee.
-        // The default is 10%
-        TakePercentage = 0.1;
-        NumOfHorses = 20;
-        Date = DateTime.Today;
-        this.RaceOfDay = raceOfDay;
-        InstantiateHorses();
-    }
 
     public void CalculateWinPayouts(List<Bet> betsList, int horse)
     {
@@ -219,9 +212,11 @@ public class Race
 
     private void InstantiateHorses()
     {
+        Horses = new List<Horse>();
+        
         for (int i = 1; i <= NumOfHorses; i++)
         {
-            var horse = new Horse(RaceOfDay, i);
+            var horse = new Horse(i);
             Horses.Add(horse);
         }
     }

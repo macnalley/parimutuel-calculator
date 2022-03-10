@@ -2,16 +2,17 @@ namespace ParimutuelCalculator;
 
 public class Horse
 {
-    public int RaceOfDay { get; set; }
     public int HorseNumber { get; set; }
     public int WinBets { get; set; }
     public int PlaceBets { get; set; }
     public int ShowBets { get; set; }
 
-    public Horse(int raceOfDay, int horseNumber)
+    public Horse(int horseNumber)
     {
-        RaceOfDay = raceOfDay;
         HorseNumber = HorseNumber;
+        WinBets = 0;
+        PlaceBets = 0;
+        ShowBets = 0;
     }
 }
 

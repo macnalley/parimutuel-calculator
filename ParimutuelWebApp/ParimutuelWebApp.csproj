@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ParmituelCalculator\parimutuel-calculator.csproj" />
+    <ProjectReference Include="..\ParimutuelData\ParimutuelData\ParimutuelData.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ParimutuelCalculator;
 
 public class Bet
-{
-    public int Race { get; set; }
-    
+{  
     [Required]
     public string Name { get; set; }
     
@@ -14,7 +12,7 @@ public class Bet
     
     public BetType BetType { get; set; }
     
-    [Range(2.00, double.MaxValue)]
+    [Required, Range(2.00, double.MaxValue)]
     public double Amount { get; set; }
     
     public double AmountOwed { get; set; }
@@ -24,6 +22,7 @@ public class Bet
     {
         Amount = 2.00;
         BetType = BetType.win;
+        AmountOwed = 0;
     }
 
     

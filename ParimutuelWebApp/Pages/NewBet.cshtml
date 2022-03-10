@@ -9,18 +9,22 @@
     <div>
         <label asp-for="Bet.Name"></label>
         <input asp-for="Bet.Name"/>
+        <span asp-validation-for="Bet.Name"></span>
     </div>
     <div>
         <label asp-for="Bet.Horse"></label>
         <input asp-for="Bet.Horse"/>
+        <span asp-validation-for="Bet.Horse"></span>
     </div>
     <div>
         <label asp-for="Bet.BetType"></label>
-        <input asp-for="Bet.BetType"/>
+        <select asp-for="Bet.BetType" asp-items="Model.BetTypes"></select>
+        <span asp-validation-for="Bet.BetType"></span>
     </div>
     <div>
         <label asp-for="Bet.Amount"></label>
         <input asp-for="Bet.Amount"/>
+        <span asp-validation-for="Bet.Amount"></span>
     </div>
     <button type="submit">Add</button>
 </form>
