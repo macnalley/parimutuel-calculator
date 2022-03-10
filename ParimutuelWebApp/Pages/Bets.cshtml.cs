@@ -8,6 +8,7 @@ namespace MyApp.Namespace
     public class BetsModel : PageModel
     {
         private readonly IParimutuelData parimutuelData;
+        
         public IEnumerable<Bet> Bets { get; set; }
 
         public BetsModel(IParimutuelData parimutuelData)

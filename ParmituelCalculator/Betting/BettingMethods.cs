@@ -100,7 +100,7 @@ public static class BettingMethods
         return highestNumber;
     }
 
-    private static string DoubleToFraction(double odds)
+    public static string DoubleToFraction(double odds)
     {
         if (odds < 5)
         {

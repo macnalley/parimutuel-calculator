@@ -221,4 +221,55 @@ public class Race
         }
     }
 
+    // Calculates the the total amount wagered by all bets on a bet type.
+    public void CalculatePool(BetType betType)
+    {
+        double pool = Bets.Where(bet => bet.BetType == betType)
+                          .Select(bet => bet.Amount)
+                          .Sum();
+
+        switch (betType)
+        {
+            case BetType.win:
+                WinTotal = pool;
+                break;
+            case BetType.place:
+                PlaceTotal = pool;
+                break;
+            case BetType.show:
+                ShowTotal = pool;
+                break;
+            default:
+                break;
+        }
+                
+    }
+
+    // Calculates the amount wagered on each horse by all bets of a given bet type.
+    public void CalculateHorsePool(BetType betType)
+    {   
+        foreach (var horse in Horses)
+        {
+            double pool = Bets.Where(bet => bet.Horse == horse.HorseNumber &&
+                                            bet.BetType == betType)
+                              .Select(bet => bet.Amount)
+                              .Sum(); 
+
+            switch (betType)
+            {
+                case BetType.win:
+                    horse.WinPool = pool;
+                    break;
+                case BetType.place:
+                    horse.PlacePool = pool;
+                    break;
+                case BetType.show:
+                    horse.ShowPool = pool;
+                    break;
+                default:
+                    break;              
+            }
+        }
+    }
+
 }

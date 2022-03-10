@@ -1,0 +1,31 @@
+﻿@page
+@using ParimutuelCalculator
+@model MyApp.Namespace.OddsModel
+@{
+}
+
+<h1>Odds</h1>
+
+<h2>Pool Totals</h2>
+
+<div>
+    <div>
+        Win: $@Model.Race.WinTotal
+    </div>
+    <div>
+        Place: $@Model.Race.PlaceTotal
+    </div>
+    <div>
+        Show: $@Model.Race.ShowTotal
+    </div>
+</div>
+<div>
+    @foreach (var horse in Model.Race.Horses)
+    {
+        <div>
+            <h3>Horse @horse.HorseNumber</h3>
+            @{ double odds = horse.CalculateOdds(Model.Race.WinTotal, BetType.win); }
+            Odds: @BettingMethods.DoubleToFraction(odds);
+        </div>
+    }
+</div>
