@@ -25,7 +25,7 @@
         <div>
             <h3>Horse @horse.HorseNumber</h3>
             @{ double odds = horse.CalculateOdds(Model.Race.WinTotal, BetType.win); }
-            Odds: @BettingMethods.DoubleToFraction(odds);
+            Win Odds: @BettingMethods.DoubleToFraction(odds)
         </div>
     }
 </div>

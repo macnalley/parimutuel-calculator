@@ -10,7 +10,7 @@ public class Horse
 
     public Horse(int horseNumber)
     {
-        HorseNumber = HorseNumber;
+        HorseNumber = horseNumber;
         WinPool = 0;
         PlacePool = 0;
         ShowPool = 0;
