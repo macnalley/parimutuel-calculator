@@ -1,0 +1,43 @@
+﻿@page
+@model MyApp.Namespace.PayoutsModel
+@{
+}
+
+<h1>Payouts</h1>
+
+<form method="post">
+    <label asp-for="Race.WinHorse"></label>
+    <input asp-for="Race.WinHorse" min="1" max="20">
+    <label asp-for="Race.PlaceHorse"></label>
+    <input asp-for="Race.PlaceHorse" min="1" max="20">
+    <label asp-for="Race.ShowHorse"></label>
+    <input asp-for="Race.ShowHorse" min="1" max="20">
+    <button type="submit">Submit</button>
+</form>
+
+<h2>Payouts</h2>
+
+@if (Model.Race.Bets.Where(bet => bet.AmountOwed > 0).ToList().Count() > 0)
+{
+    <table>
+        <tr>
+            <th>Bettor</th>
+            <th>Owed</th>
+        </tr>
+        @foreach (var bet in Model.Race.Bets)
+        {
+            if (bet.AmountOwed > 0)
+            {
+                <tr>
+                    <td>@bet.Name</td>
+                    <td>$@String.Format("{0:0.00}", bet.AmountOwed)</td>
+                </tr>
+            }
+        }
+    </table>
+}
+else
+{
+    <p>No winning bets.</p>
+}
+

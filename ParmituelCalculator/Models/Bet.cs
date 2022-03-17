@@ -86,4 +86,8 @@ public class Bet
         return $"{Name}: ${Amount} to {BetType} on horse {Horse}";
     }
 
+    public void SetAmountOwed(double payout)
+    {
+        AmountOwed = (Amount * payout) + Amount; 
+    }
 }

@@ -185,10 +185,11 @@ void PayoutMenu()
         { Console.WriteLine("No winners."); }
     else 
     {
+        race.Bets = betsList;
         Console.WriteLine("Payouts");
-        race.CalculateWinPayouts(betsList, winHorse);
-        race.CalculatePlacePayouts(betsList, winHorse, placeHorse);
-        race.CalculateShowPayouts(betsList, winHorse, placeHorse, showHorse);
+        race.CalculateWinPayouts(winHorse);
+        race.CalculatePlacePayouts(winHorse, placeHorse);
+        race.CalculateShowPayouts(winHorse, placeHorse, showHorse);
     }
     
     Console.ReadLine();

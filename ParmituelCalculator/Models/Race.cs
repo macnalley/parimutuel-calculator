@@ -10,7 +10,9 @@ public class Race
     public double WinTotal { get; set; }
     public double PlaceTotal { get; set; }
     public double ShowTotal { get; set; }
-    
+    public int WinHorse { get; set; }
+    public int PlaceHorse { get; set; }
+    public int ShowHorse { get; set; }    
     
     public Race()
     {
@@ -26,24 +28,24 @@ public class Race
         ShowTotal = 0;
     }
 
-
-    public void CalculateWinPayouts(List<Bet> betsList, int horse)
+    public void CalculateWinPayouts(int horse)
     {
-        // The amount of money bet on all horses to win
-        WinTotal = CalculateBetTotal(betsList, BetType.win);
+        // Calculates the amount of money bet on all horses to win
+        CalculatePool(BetType.win);
+        CalculateHorsePool(BetType.win);
     
         // The amount kept as a fee by the house
         double take = WinTotal * TakePercentage;
 
-        // The total amount of money bet to win on the winning horse
-        double horseTotal = CalculateHorseTotal(betsList, BetType.win, horse);
+        // The total amount of money bet to place on the winning and placing horses
+        double winHorseTotal = CalculateHorseTotal(Bets, BetType.place, horse);
 
         // The remaining amount to be paid out to correct bets after paying the house 
         // and paying back the winning bets' initial wager
-        double purse = WinTotal - take - horseTotal;
+        double purse = WinTotal - take - winHorseTotal;
 
         // The amount paid per $2 bet to winning bettors
-        double payout = purse / horseTotal * 2.00;
+        double payout = purse / WinTotal;
 
         // Rounds the payout down to nearest 10 cents
         payout = Math.Floor(payout * 10) / 10;
@@ -52,29 +54,25 @@ public class Race
         if (payout < 0.10) 
             { payout = 0.10; }
 
-        foreach (Bet bet in betsList)
-        {
-            if (bet.Horse == horse & bet.BetType == BetType.win)
-            {
-                double amountOwed = bet.Amount * (payout / 2.00) + bet.Amount; 
-                string owedString = String.Format("{0:0.00}", amountOwed);
-                Console.WriteLine($"{ bet.Name } is owed ${ owedString }");
-            }
-        }
+        Bets.Where(bet => bet.Horse == WinHorse && bet.BetType == BetType.win)
+            .ToList()
+            .ForEach(bet => bet.SetAmountOwed(payout));
     }
 
-    public void CalculatePlacePayouts(List<Bet> betsList, int winHorse, int placeHorse)
+    public void CalculatePlacePayouts(int winHorse, int placeHorse)
     {
         // The amount of money bet on all horses to place
-        PlaceTotal = CalculateBetTotal(betsList, BetType.place);
+        CalculatePool(BetType.place);
+        CalculateHorsePool(BetType.place);
     
         // The amount kept as a fee by the house
         double take = PlaceTotal * TakePercentage;
 
         // The total amount of money bet to place on the winning and placing horses
-        double winHorseTotal = CalculateHorseTotal(betsList, BetType.place, winHorse);
-        double placeHorseTotal = CalculateHorseTotal(betsList, BetType.place, placeHorse);
+        double winHorseTotal = CalculateHorseTotal(Bets, BetType.place, winHorse);
+        double placeHorseTotal = CalculateHorseTotal(Bets, BetType.place, placeHorse);
 
+        // The total bet on both horses
         double horseTotal = winHorseTotal + placeHorseTotal;
 
         // The remaining amount to be paid out to correct bets on each horse after paying the house 
@@ -83,8 +81,8 @@ public class Race
         double purse = (PlaceTotal - take - horseTotal) / 2;
 
         // The amount paid per $2 bet to bettors of the winning and placing horse
-        double winPayout = (purse / winHorseTotal * 2.00);
-        double placePayout = (purse / placeHorseTotal * 2.00);
+        double winPayout = (purse / winHorseTotal);
+        double placePayout = (purse / placeHorseTotal);
 
         // Rounds the payout down to nearest 10 cents
         winPayout = Math.Floor(winPayout * 10) / 10;
@@ -96,40 +94,28 @@ public class Race
         if (placePayout < 0.10) 
             { placePayout = 0.10; }
 
-        foreach (Bet bet in betsList)
-        {
-            if (bet.Horse == winHorse && bet.BetType == BetType.place)
-            {
-                double amountOwed = bet.Amount * (winPayout / 2.00) + bet.Amount; 
-                string owedString = String.Format("{0:0.00}", amountOwed);
-                if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
-            }
-        }
-        foreach (Bet bet in betsList)
-        {
-            if (bet.Horse == placeHorse && bet.BetType == BetType.place)
-            {
-                double amountOwed = bet.Amount * (placePayout / 2.00) + bet.Amount; 
-                string owedString = String.Format("{0:0.00}", amountOwed);
-                if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
-            }
-        }
+        Bets.Where(bet => bet.Horse == WinHorse && bet.BetType == BetType.place)
+            .ToList()
+            .ForEach(bet => bet.SetAmountOwed(winPayout));
+
+        Bets.Where(bet => bet.Horse == PlaceHorse && bet.BetType == BetType.place)
+            .ToList()
+            .ForEach(bet => bet.SetAmountOwed(placePayout));
     }
 
-    public void CalculateShowPayouts(List<Bet> betsList, int winHorse, int placeHorse, int showHorse)
+    public void CalculateShowPayouts(int winHorse, int placeHorse, int showHorse)
     {
         // The amount of money bet on all horses to show
-        ShowTotal = CalculateBetTotal(betsList, BetType.show);
+        CalculatePool(BetType.show);
+        CalculateHorsePool(BetType.show);
     
         // The amount kept as a fee by the house
         double take = ShowTotal * TakePercentage;
 
         // The total amount of money bet to place on the winning, placing, and showing horses
-        double winHorseTotal = CalculateHorseTotal(betsList, BetType.show, winHorse);
-        double placeHorseTotal = CalculateHorseTotal(betsList, BetType.show, placeHorse);
-        double showHorseTotal = CalculateHorseTotal(betsList, BetType.show, showHorse);
+        double winHorseTotal = CalculateHorseTotal(Bets, BetType.show, winHorse);
+        double placeHorseTotal = CalculateHorseTotal(Bets, BetType.show, placeHorse);
+        double showHorseTotal = CalculateHorseTotal(Bets, BetType.show, showHorse);
 
         double horseTotal = winHorseTotal + placeHorseTotal + showHorseTotal;
 
@@ -139,9 +125,9 @@ public class Race
         double purse = (ShowTotal - take - horseTotal) / 3;
 
         // The amount paid per $2 bet to bettors of the winning, placing, and showing horses
-        double winPayout = (purse / winHorseTotal * 2.00);
-        double placePayout = (purse / placeHorseTotal * 2.00);
-        double showPayout =  (purse / showHorseTotal * 2.00);
+        double winPayout = (purse / winHorseTotal);
+        double placePayout = (purse / placeHorseTotal);
+        double showPayout =  (purse / showHorseTotal);
 
         // Rounds the payout down to nearest 10 cents
         winPayout = Math.Floor(winPayout * 10) / 10;
@@ -156,36 +142,17 @@ public class Race
         if (showPayout < 0.10)
             { showPayout = 0.10; }
 
-        foreach (Bet bet in betsList)
-        {
-            if (bet.Horse == winHorse && bet.BetType == BetType.show)
-            {
-                double amountOwed = bet.Amount * (winPayout / 2.00) + bet.Amount; 
-                string owedString = String.Format("{0:0.00}", amountOwed);
-                if (amountOwed > 0)
-                { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
-            }
-        }
-        foreach (Bet bet in betsList)
-        {
-            if (bet.Horse == placeHorse && bet.BetType == BetType.show)
-            {
-                double amountOwed = bet.Amount * (placePayout / 2.00) + bet.Amount; 
-                string owedString = String.Format("{0:0.00}", amountOwed);
-                if (amountOwed > 0)
-                { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
-            }
-        }
-        foreach (Bet bet in betsList)
-        {
-            if (bet.Horse == showHorse && bet.BetType == BetType.show)
-            {
-                double amountOwed = bet.Amount * (showPayout / 2.00) + bet.Amount; 
-                string owedString = String.Format("{0:0.00}", amountOwed);
-                if (amountOwed > 0)
-                    { Console.WriteLine($"{ bet.Name } is owed ${ owedString }"); }
-            }
-        }
+        Bets.Where(bet => bet.Horse == WinHorse && bet.BetType == BetType.show)
+            .ToList()
+            .ForEach(bet => bet.SetAmountOwed(winPayout));
+
+        Bets.Where(bet => bet.Horse == PlaceHorse && bet.BetType == BetType.show)
+            .ToList()
+            .ForEach(bet => bet.SetAmountOwed(placePayout));
+
+        Bets.Where(bet => bet.Horse == ShowHorse && bet.BetType == BetType.show)
+            .ToList()
+            .ForEach(bet => bet.SetAmountOwed(showPayout));   
     }
     
     // Calculates the total amount wagered on a given horse and bet type. 

@@ -22,7 +22,7 @@ public class InMemoryRaces : IParimutuelData
             new Bet{ Name = "Spike", Horse = 4, BetType = BetType.win, Amount = 5.00 },
             new Bet{ Name = "Sunshine", Horse = 5, BetType = BetType.place, Amount = 6.00 },
             new Bet{ Name = "Dixie", Horse = 1, BetType = BetType.show, Amount = 7.00 },
-            new Bet{ Name = "Mike", Horse = 2, BetType = BetType.win, Amount = 8.00 }
+            new Bet{ Name = "Sourcream", Horse = 2, BetType = BetType.win, Amount = 8.00 }
         };
     }
 
