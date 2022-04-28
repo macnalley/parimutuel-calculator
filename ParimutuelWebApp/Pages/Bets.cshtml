@@ -12,6 +12,7 @@
             <th>Horse</th>
             <th>Bet Type</th>
             <th>Amount</th>
+            <th></th>
         </tr>
         @foreach (var bet in Model.Bets)
         {
@@ -20,6 +21,12 @@
                 <td>@bet.Horse</td>
                 <td>@bet.BetType</td>
                 <td>$@String.Format("{0:0.00}", bet.Amount)</td>
+                <td>
+                    <form method="post">
+                        <button asp-page-handler="Delete" asp-route-id="@bet.Id" 
+                        onclick="return confirm('Are you sure you want to delete?')" class="btn">Delete</button>
+                     </form>
+                </td>
             </tr>    
         }
     </table>

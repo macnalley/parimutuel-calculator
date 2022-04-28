@@ -7,6 +7,7 @@ public class Race
     public int NumOfHorses { get; set; }
     public List<Horse> Horses { get; set; }
     public List<Bet> Bets { get; set; }
+    public int LastBetId { get; set; }
     public double WinTotal { get; set; }
     public double PlaceTotal { get; set; }
     public double ShowTotal { get; set; }
@@ -23,6 +24,7 @@ public class Race
         Date = DateTime.Today;
         InstantiateHorses();
         Bets = new List<Bet>();
+        LastBetId = 0;
         WinTotal = 0;
         PlaceTotal = 0;
         ShowTotal = 0;

@@ -20,5 +20,12 @@ namespace MyApp.Namespace
         {
             Bets = parimutuelData.GetRace().Bets; 
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            var bet = parimutuelData.GetRace().Bets.Single(bet => bet.Id == id);
+            parimutuelData.GetRace().Bets.Remove(bet);
+            return RedirectToPage("./Bets");
+        }
     }
 }
