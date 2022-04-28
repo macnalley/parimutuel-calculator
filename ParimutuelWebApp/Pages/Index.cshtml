@@ -4,9 +4,35 @@
     ViewData["Title"] = "Home page";
 }
 
-<div>
-    <h2><a asp-page="./Bets">View Bets</a></h2>
-    <h2><a asp-page="./NewBet">New Bet</a></h2>
-    <h2><a asp-page="./Odds">Odds</a></h2>
-    <h2><a asp-page="./Payouts">Payouts</a></h2>
+<div class="container">
+    <div class="row py-5">
+        <div class="col h-100">
+            <a asp-page="./Bets" class="text-decoration-none">
+                <div class="card text-center py-5">
+                    <h2 class="card-title text-black">View Bets</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col h-100">
+            <a asp-page="./NewBet" class="text-decoration-none">
+                <div class="card text-center py-5">
+                    <h2 class="card-title text-black">New Bet</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col h-100">
+            <a asp-page="./Odds" class="text-decoration-none">
+                <div class="card text-center py-5">
+                    <h2 class="card-title text-black">Odds</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col h-100">
+            <a asp-page="./Payouts" class="text-decoration-none">
+                <div class="card text-center py-5">
+                    <h2 class="card-title text-black">Payouts</h2>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>

@@ -5,39 +5,41 @@
 
 <h1>Payouts</h1>
 
-<form method="post">
-    <label asp-for="Race.WinHorse"></label>
-    <input asp-for="Race.WinHorse" min="1" max="20">
-    <label asp-for="Race.PlaceHorse"></label>
-    <input asp-for="Race.PlaceHorse" min="1" max="20">
-    <label asp-for="Race.ShowHorse"></label>
-    <input asp-for="Race.ShowHorse" min="1" max="20">
-    <button type="submit">Submit</button>
+<form method="post" class="mb-4">
+    <div class="row mb-2 w-75">
+        <label asp-for="Race.WinHorse" class="form-label col">1st Place Horse</label>
+        <input asp-for="Race.WinHorse" min="1" max="20" class="form-control col">
+        <label asp-for="Race.PlaceHorse" class="form-label col">2nd Place Horse</label>
+        <input asp-for="Race.PlaceHorse" min="1" max="20" class="form-control col">
+        <label asp-for="Race.ShowHorse" class="form-label col">3rd Place Horse</label>
+        <input asp-for="Race.ShowHorse" min="1" max="20" class="form-control col">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <h2>Payouts</h2>
-
-@if (Model.Race.Bets.Where(bet => bet.AmountOwed > 0).ToList().Count() > 0)
-{
-    <table>
-        <tr>
-            <th>Bettor</th>
-            <th>Owed</th>
-        </tr>
-        @foreach (var bet in Model.Race.Bets)
-        {
-            if (bet.AmountOwed > 0)
+<div class="container">
+    @if (Model.Race.Bets.Where(bet => bet.AmountOwed > 0).ToList().Count() > 0)
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>Bettor</th>
+                <th>Owed</th>
+            </tr>
+            @foreach (var bet in Model.Race.Bets)
             {
-                <tr>
-                    <td>@bet.Name</td>
-                    <td>$@String.Format("{0:0.00}", bet.AmountOwed)</td>
-                </tr>
+                if (bet.AmountOwed > 0)
+                {
+                    <tr>
+                        <td>@bet.Name</td>
+                        <td>$@String.Format("{0:0.00}", bet.AmountOwed)</td>
+                    </tr>
+                }
             }
-        }
-    </table>
-}
-else
-{
-    <p>No winning bets.</p>
-}
-
+        </table>
+    }
+    else
+    {
+        <p>No winning bets.</p>
+    }
+</div>

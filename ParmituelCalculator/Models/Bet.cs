@@ -12,7 +12,7 @@ public class Bet
     
     public BetType BetType { get; set; }
     
-    [Required, Range(2.00, double.MaxValue)]
+    [Required, Range(2.00, 9999.99)]
     public double Amount { get; set; }
     
     public double AmountOwed { get; set; }
