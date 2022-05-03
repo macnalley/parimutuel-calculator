@@ -5,6 +5,8 @@ The program can take manually entered bets to win, place, or show; store them in
 
 This program targets .NET 6. The .NET 6 rutime can be obtained from https://dotnet.microsoft.com/en-us/download/dotnet/6.0. The program can be run by cloning the directory, cd'ing into the directory from a command line, and using the "dotnet run" command.
 
+The project I am submitting for Code Louisville is the console app in the main branch. The side branch is a work-in-progress to practice additional features; do not review it for my Code Louisville project.
+
 ## Functionality
 ### Take Bet
 Bets can be placed on a horse (or hound, as while the program uses the terminology of horse racing, the calculations are the same for any parimutuel pool) to win, place, show. The program operator must enter arguments for the bettor's name, the horse number, the type of bet (win, place, or show), and the amount wagered, in that order. Arguments must be separated by commas or spaces. To enter a first and last name for the bettor, commas must be used to separate arguments. The amount wagered and bet type are optional. If not entered, the amount wagered will default to $2.00. The minimum acceptable bet is $2.00.
