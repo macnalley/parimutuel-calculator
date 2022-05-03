@@ -24,11 +24,7 @@ namespace MyApp.Namespace
 
         public void OnGet()
         {
-            Bet = new Bet()
-            {
-                Id = parimutuelData.GetRace().LastBetId++,
-            };
-
+            Bet = new Bet();
             BetTypes = htmlHelper.GetEnumSelectList<BetType>();
         }
 
@@ -36,8 +32,9 @@ namespace MyApp.Namespace
         {
             if (ModelState.IsValid)
             {
+                Bet.Id = parimutuelData.GetRace().IdCounter;
                 parimutuelData.GetRace().Bets.Add(Bet);
-                parimutuelData.GetRace().LastBetId++;
+                parimutuelData.GetRace().IdCounter++;
                 return RedirectToPage("./Bets");
             }
             else
