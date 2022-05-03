@@ -30,24 +30,53 @@ public class Race
         ShowTotal = 0;
     }
 
-    public void CalculateWinPayouts(int horse)
+    public void CalculateWinPayouts(int horse, int placeHorse, int showHorse)
     {
         // Calculates the amount of money bet on all horses to win
         CalculatePool(BetType.win);
+
+        if (ExistsWinner(BetType.win, horse, placeHorse, showHorse) && 
+            !ExistsWinner(BetType.place, horse, placeHorse, showHorse) && 
+            ExistsWinner(BetType.show, horse, placeHorse, showHorse))
+        {
+            CalculatePool(BetType.place);
+            WinTotal += PlaceTotal;
+        }
+
+        if (ExistsWinner(BetType.win, horse, placeHorse, showHorse) && 
+            !ExistsWinner(BetType.place, horse, placeHorse, showHorse) && 
+            !ExistsWinner(BetType.show, horse, placeHorse, showHorse))
+        {
+            CalculatePool(BetType.place);
+            WinTotal += PlaceTotal;
+
+            CalculatePool(BetType.show);
+            WinTotal += ShowTotal;
+        }
+
+        if (ExistsWinner(BetType.win, horse, placeHorse, showHorse) && 
+            ExistsWinner(BetType.place, horse, placeHorse, showHorse) && 
+            !ExistsWinner(BetType.show, horse, placeHorse, showHorse))
+        {
+            CalculatePool(BetType.show);
+            WinTotal += ShowTotal;
+        }
+
+
         CalculateHorsePool(BetType.win);
     
         // The amount kept as a fee by the house
         double take = WinTotal * TakePercentage;
 
         // The total amount of money bet to place on the winning and placing horses
-        double winHorseTotal = CalculateHorseTotal(Bets, BetType.place, horse);
+        double winHorseTotal = CalculateHorseTotal(Bets, BetType.win, horse);
 
         // The remaining amount to be paid out to correct bets after paying the house 
         // and paying back the winning bets' initial wager
         double purse = WinTotal - take - winHorseTotal;
 
         // The amount paid per $2 bet to winning bettors
-        double payout = purse / WinTotal;
+        double payout = purse / winHorseTotal;
 
         // Rounds the payout down to nearest 10 cents
         payout = Math.Floor(payout * 10) / 10;
@@ -61,10 +90,31 @@ public class Race
             .ForEach(bet => bet.SetAmountOwed(payout));
     }
 
-    public void CalculatePlacePayouts(int winHorse, int placeHorse)
+    public void CalculatePlacePayouts(int winHorse, int placeHorse, int showHorse)
     {
         // The amount of money bet on all horses to place
         CalculatePool(BetType.place);
+        
+        if (!ExistsWinner(BetType.win, winHorse, placeHorse, showHorse) && 
+            ExistsWinner(BetType.place, winHorse, placeHorse, showHorse) && 
+            ExistsWinner(BetType.show, winHorse, placeHorse, showHorse))
+        {
+            CalculatePool(BetType.win);
+            PlaceTotal += WinTotal;
+        }
+
+        if (!ExistsWinner(BetType.win, winHorse, placeHorse, showHorse) && 
+            ExistsWinner(BetType.place, winHorse, placeHorse, showHorse) && 
+            !ExistsWinner(BetType.show, winHorse, placeHorse, showHorse))
+        {
+            CalculatePool(BetType.win);
+            PlaceTotal += WinTotal;
+
+            CalculatePool(BetType.show);
+            PlaceTotal += ShowTotal;
+        }
+
+
         CalculateHorsePool(BetType.place);
     
         // The amount kept as a fee by the house
@@ -109,6 +159,18 @@ public class Race
     {
         // The amount of money bet on all horses to show
         CalculatePool(BetType.show);
+
+        if (!ExistsWinner(BetType.win, winHorse, placeHorse, showHorse) && 
+            !ExistsWinner(BetType.place, winHorse, placeHorse, showHorse) && 
+            ExistsWinner(BetType.show, winHorse, placeHorse, showHorse))
+        {
+            CalculatePool(BetType.win);
+            ShowTotal += WinTotal;
+            
+            CalculatePool(BetType.place);
+            ShowTotal += PlaceTotal;
+        }
+
         CalculateHorsePool(BetType.show);
     
         // The amount kept as a fee by the house
@@ -161,9 +223,9 @@ public class Race
     //E.g., the total amount placed by all bettors to win on horse 1. 
     private double CalculateHorseTotal(List<Bet> betsList, BetType betType, int horse)
     {
-        double total = (from bet in betsList
-                        where bet.BetType == betType && bet.Horse == horse
-                        select bet.Amount).Sum();
+        double total = betsList.Where(bet => bet.BetType == betType && bet.Horse == horse)
+                               .Select(bet => bet.Amount)
+                               .Sum();
 
         return total;
     }
@@ -239,6 +301,27 @@ public class Race
                     break;              
             }
         }
+    }
+
+    public bool ExistsWinner(BetType betType, int winHorse, int placeHorse, int showHorse)
+    {
+        switch (betType)
+        {
+            case BetType.win:
+                return Bets.Exists(bet => bet.BetType == betType &&
+                                  bet.Horse == winHorse);           
+            case BetType.place:
+                return Bets.Exists(bet => bet.BetType == betType &&
+                                   (bet.Horse == winHorse || bet.Horse == placeHorse));
+            case BetType.show:
+                return Bets.Exists(bet => bet.BetType == betType &&
+                                   (bet.Horse == winHorse || bet.Horse == placeHorse || bet.Horse == showHorse));
+            default:
+                return false;
+        }
+        
+        
+        
     }
 
 }

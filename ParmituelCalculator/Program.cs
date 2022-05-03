@@ -187,8 +187,8 @@ void PayoutMenu()
     {
         race.Bets = betsList;
         Console.WriteLine("Payouts");
-        race.CalculateWinPayouts(winHorse);
-        race.CalculatePlacePayouts(winHorse, placeHorse);
+        race.CalculateWinPayouts(winHorse, placeHorse, showHorse);
+        race.CalculatePlacePayouts(winHorse, placeHorse, showHorse);
         race.CalculateShowPayouts(winHorse, placeHorse, showHorse);
     }
     

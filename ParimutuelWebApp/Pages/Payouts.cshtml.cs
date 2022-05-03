@@ -34,9 +34,9 @@ namespace MyApp.Namespace
                 foreach(var bet in Race.Bets)
                     { bet.AmountOwed = 0; }
                 
-                Race.CalculateWinPayouts(Race.WinHorse);
-                Race.CalculatePlacePayouts(Race.WinHorse, Race.PlaceHorse);
                 Race.CalculateShowPayouts(Race.WinHorse, Race.PlaceHorse, Race.ShowHorse);
+                Race.CalculatePlacePayouts(Race.WinHorse, Race.PlaceHorse, Race.ShowHorse);
+                Race.CalculateWinPayouts(Race.WinHorse, Race.PlaceHorse, Race.ShowHorse);
 
                 return Page();
             }
