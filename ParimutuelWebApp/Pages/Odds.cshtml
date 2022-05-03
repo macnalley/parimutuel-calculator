@@ -29,8 +29,18 @@
             <div class="col my-4">
                 <div class="card h-100 text-center p-5">
                     <h4>Horse @horse.HorseNumber</h4>
-                    @{ double odds = horse.CalculateOdds(Model.Race.WinTotal, BetType.win); }
-                    Win Odds: @BettingMethods.DoubleToFraction(odds)
+                    <p>
+                        @{ double winOdds = horse.CalculateOdds(Model.Race.WinTotal, BetType.win); }
+                        Win Odds: @BettingMethods.DoubleToFraction(winOdds)
+                    </p>
+                    <p>
+                        @{ double placeOdds = horse.CalculateOdds(Model.Race.PlaceTotal, BetType.place); }
+                        Place Odds: @BettingMethods.DoubleToFraction(placeOdds)
+                    </p>
+                    <p>
+                        @{ double showOdds = horse.CalculateOdds(Model.Race.ShowTotal, BetType.show); }
+                        Show Odds: @BettingMethods.DoubleToFraction(showOdds)
+                    </p>
                 </div>
             </div>
         }

@@ -23,6 +23,8 @@ namespace MyApp.Namespace
             Race.CalculatePool(BetType.place);
             Race.CalculatePool(BetType.show);
             Race.CalculateHorsePool(BetType.win);
+            Race.CalculateHorsePool(BetType.place);
+            Race.CalculateHorsePool(BetType.show);
         }
     }
 }

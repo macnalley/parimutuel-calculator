@@ -26,15 +26,16 @@ public class Horse
                 horsePool = WinPool;
                 break;
             case BetType.place:
-                horsePool = PlacePool;
+                horsePool = PlacePool / 2;
+                betTotal = betTotal / 2;
                 break;
             case BetType.show:
-                horsePool = ShowPool;
+                horsePool = ShowPool / 3;
+                betTotal = betTotal / 3;
                 break;
             default:
                 horsePool = 0;
                 break;
-
     }
 
         if (horsePool == 0)
